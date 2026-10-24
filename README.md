@@ -184,3 +184,8 @@ AGPL-3.0.
 support@flythebg.com
 
 This is the official FlyThe BG support address for product questions, privacy requests, security reports and project communication.
+
+
+### Account-free DPDP note (reviewed 2026-10-24)
+
+FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary and route requests through the support inbox. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.

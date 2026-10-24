@@ -982,6 +982,10 @@ body:has(.fly-home)>.notice,body:has(.fly-home)>.nav,body:has(.fly-home)>.footer
 .upload-confirm input:disabled+.upload-confirm-check{opacity:.45}
 .upload-confirm-copy{display:flex;flex-direction:column;gap:4px;line-height:1.4}
 .upload-confirm-copy strong{font-size:14px;color:#fff}.upload-confirm-copy small{font-size:12px;color:#d3d7dc}
+.processing-disclosure{margin:14px 0;padding:14px 16px;border:1px solid #ffffff30;border-radius:14px;background:rgba(255,255,255,.05);color:#e3e8e5;font-size:13px;line-height:1.6}
+.processing-disclosure strong{display:block;margin-bottom:6px;color:#fff;font-size:14px}
+.processing-disclosure p{margin:6px 0}
+.processing-disclosure a{color:#7ee2b4;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:600px){.upload-preview{flex-direction:column;align-items:stretch}.upload-preview-media{width:100%;height:220px}.fly-site-content{border-radius:16px}.fly-home-footer{width:calc(100% - 32px)}}
 @media(prefers-reduced-motion:reduce){.fly-site-hero .fly-bg-video{display:none}}
 

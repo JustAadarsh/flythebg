@@ -1,6 +1,6 @@
 # FlyThe BG — DPDP / Privacy Compliance Implementation Notes
 
-Updated: 2026-10-03
+Updated: 2026-10-24
 
 This document is an engineering compliance checklist, not legal advice. It maps the FlyThe BG implementation to India's Digital Personal Data Protection Act, 2023 (DPDP Act) and the notified Digital Personal Data Protection Rules, 2025.
 
@@ -38,7 +38,7 @@ When a user saves a choice, FlyThe BG records in the browser:
 - source (banner or settings);
 - each optional category decision.
 
-A first-party consent cookie mirrors the record so the preference can survive a normal page reload. The record does not contain uploaded media.
+The preference record is stored in browser localStorage only. The updated implementation removes the legacy first-party consent cookie so a detailed consent record is not included in ordinary same-origin request headers. The record does not contain uploaded media.
 
 ### 3. Withdrawal / change of optional consent
 The Privacy choices button remains available after the initial choice. A user can switch optional categories off and save again. The website emits a flythebg:consent-changed event and exposes a small client API as window.FlyTheBGConsent so future analytics, advertising and affiliate integrations can be gated consistently.
@@ -135,3 +135,20 @@ Do not store uploaded images in that ledger.
 - Digital Personal Data Protection Act, 2023 — Ministry of Electronics and Information Technology.
 - Digital Personal Data Protection Rules, 2025 — notified by MeitY on 13 November 2025.
 - MeitY explanatory note to the DPDP Rules, 2025.
+
+
+## Account-free service: rights are still relevant
+
+FlyThe BG has no registration, sign-in, password, user profile or account database. Therefore it does not need an account-deletion button for an account that is never created, and it cannot offer an export of a persistent account profile or media library that does not exist. This does **not** remove the need to handle requests about personal data that may exist in support correspondence, applicable security/technical records or third-party processor records. The public route is the privacy/support email on /contact; test that the mailbox is active and monitored before relying on it as the grievance channel.
+
+The published user notice now distinguishes local browser processing from the Remove Background path, itemizes relevant categories and recipients, describes the no-account design, and explains what can and cannot be deleted/exported. The file-processing checkbox is a feature-specific disclosure/affirmative action; it is not a universal consent for advertising and is not verifiable parental/guardian consent.
+
+## Deployment caveats to close before claiming compliance
+
+- Confirm the operator identity and the appropriate contact details to publish. FlyThe BG is a project name and the repository currently describes it as non-registered; do not invent a legal entity or imply that the name itself is a registered company.
+- Send a real test message to support@flythebg.com, confirm delivery and monitoring, and document who reviews requests. If this address is not a working inbox, replace it everywhere with the actual monitored channel before deployment.
+- The current UI does not independently verify parental or lawful-guardian consent. A normal checkbox is not a substitute for verifiable consent when the child-data rules apply. Obtain a legal decision and implement a compliant mechanism or restrict the relevant processing before claiming readiness for the applicable commencement date.
+- Confirm processor-side retention, access controls and request escalation for the Hugging Face/Gradio Space. The website cannot promise zero transient retention by an independent runtime.
+- Validate the actual production bundle for ad/analytics injection and confirm the public consent choice prevents optional tags before enabling any such scripts.
+- The current consent record is browser-side only and can be edited or cleared. Do not describe it as an immutable or server-side audit log.
+- The DPDP (Removal of Difficulties) Order, 2026 clarifies the wording of section 9 regarding a child or a person with disability who has a lawful guardian. It did not remove the need to assess the applicable verifiable-consent mechanism.
