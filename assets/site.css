@@ -1631,3 +1631,22 @@ body.fb-404-mode #app{width:100%;height:100%;min-height:100vh}
 @media(prefers-reduced-motion:reduce){
  .fb-404-overlay,.fb-404-panel,.fb-404-backdrop,.fb-404-menu-items a,.fb-404-home,.fb-404-menu-cta a,.fb-404-menu{transition:none!important;animation:none!important}
 }
+
+
+/* Explicit reveal choice for the project operator's optional phone contact. */
+.contact-number-gate{margin:24px 0;padding:20px;border:1px solid var(--line,rgba(255,255,255,.16));border-radius:18px;background:rgba(255,255,255,.035)}
+.contact-number-gate h2{margin-top:0}
+.contact-reveal-gate{display:grid;gap:12px;margin-top:14px}
+.contact-reveal-choice{display:flex;align-items:flex-start;gap:11px;padding:13px;border:1px solid var(--line,rgba(255,255,255,.15));border-radius:12px;background:rgba(255,255,255,.025);cursor:pointer}
+.contact-reveal-choice input{flex:0 0 18px;width:18px;height:18px;margin:3px 0 0;accent-color:var(--green,#7ee2b4)}
+.contact-reveal-choice span{display:grid;gap:4px}
+.contact-reveal-choice strong{font-size:14px}
+.contact-reveal-choice small{font-size:12px;line-height:1.5;color:var(--muted,#aab3ad)}
+.contact-reveal-button:disabled{opacity:.45;cursor:not-allowed}
+.contact-reveal-result{margin-top:14px;padding-top:12px;border-top:1px solid var(--line,rgba(255,255,255,.15))}
+.contact-reveal-result[hidden],.contact-reveal-gate[hidden]{display:none!important}
+.contact-reveal-number{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.01em;margin:10px 0 16px}
+.contact-reveal-number a{color:inherit;text-decoration:underline;text-underline-offset:4px}
+.contact-hide-button{font-size:13px}
+.contact-reveal-error{color:#f3b4a8;font-size:13px;margin-top:8px}
+@media(max-width:600px){.contact-number-gate{padding:15px}.contact-reveal-choice{padding:11px}}

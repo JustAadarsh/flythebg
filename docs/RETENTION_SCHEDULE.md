@@ -1,6 +1,6 @@
 # FlyThe BG — Data Retention Schedule
 
-Updated: 2026-10-24
+Updated: 2026-10-25
 
 This schedule is an engineering baseline and must be reconciled with the actual providers and applicable legal requirements before production use.
 
@@ -24,3 +24,5 @@ This schedule is an engineering baseline and must be reconciled with the actual 
 ## No-account rights requests
 
 There is no user-account profile or persistent media library to export/delete. Support correspondence and technical/security records may still contain personal data; retain them only for documented support, security, legal or grievance purposes and handle rights requests under applicable law. Records held independently by external providers require provider-specific review/escalation. The support inbox must be verified as operational and monitored.
+
+| Contact-number reveal preference cookie | Remember that the visitor requested phone-number display | 30 days, only if the visitor checks the separate remember-choice checkbox; stores only a 1 flag, not the number; cleared by Hide action |

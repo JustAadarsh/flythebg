@@ -353,6 +353,29 @@ export default {
     if (url.pathname === "/api/remove-bg") {
       return onRequest({ request, env, params: {}, waitUntil: () => {} });
     }
+    if (url.pathname === "/api/contact-details") {
+      const headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-store, max-age=0",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer"
+      };
+      const respond = (data, status) => withSecurityHeaders(new Response(JSON.stringify(data), { status, headers }));
+      if (request.method !== "POST") return respond({ error: "Use POST to request contact details." }, 405);
+      const origin = request.headers.get("Origin") || "";
+      if (!new Set(["https://flythebg.com", "https://www.flythebg.com"]).has(origin)) return respond({ error: "Contact details can only be requested from the FlyThe BG website." }, 403);
+      if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) return respond({ error: "A JSON acknowledgement is required." }, 415);
+      let payload;
+      try { payload = await request.json(); } catch { return respond({ error: "The request could not be read." }, 400); }
+      const cookie = request.headers.get("Cookie") || "";
+      const remembered = cookie.split(";").some(part => part.trim() === "flythebg_contact_reveal=1");
+      if (payload?.acknowledged !== true && !remembered) return respond({ error: "Please acknowledge the phone-display notice first." }, 403);
+      const contactPhone = typeof env.CONTACT_PHONE === "string" ? env.CONTACT_PHONE.trim() : "";
+      if (!contactPhone) return respond({ error: "Phone contact is not configured yet. Please use support@flythebg.com." }, 503);
+      return respond({ phone: contactPhone }, 200);
+    }
+
 
     if (url.pathname === "/ads.txt") {
       return new Response("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0\\n", {

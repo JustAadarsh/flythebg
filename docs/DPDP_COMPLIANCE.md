@@ -1,6 +1,6 @@
 # FlyThe BG — DPDP / Privacy Compliance Implementation Notes
 
-Updated: 2026-10-24
+Updated: 2026-10-25
 
 This document is an engineering compliance checklist, not legal advice. It maps the FlyThe BG implementation to India's Digital Personal Data Protection Act, 2023 (DPDP Act) and the notified Digital Personal Data Protection Rules, 2025.
 
@@ -73,7 +73,7 @@ The Privacy Policy now includes a prominent India/DPDP compliance notice coverin
 These should not be represented as completed merely because the UI is present:
 
 1. Data fiduciary identity and responsible contact
-   The Rules require a clearly available contact for processing questions. FlyThe BG currently uses support@flythebg.com. If the project is operated through a legal person/entity, the Privacy Policy should identify that legal entity and address accurately.
+   The public notice identifies Aadarsh Maurya as the individual project operator and states that FlyThe BG is not a registered company/business entity. The public privacy/grievance email is support@flythebg.com. An optional phone contact is shown via an acknowledgement interface on /contact; the phone number is configured only as the Cloudflare Worker secret CONTACT_PHONE and must not be committed to public source. Verify the actual legal details, email mailbox and any required address/contact fields with legal advice before relying on this as full compliance.
 
 2. Children's data
    The Rules provide for verifiable parental/legal-guardian consent for processing children's personal data, subject to specified exemptions. FlyThe BG can receive photographs that may depict children. A legal/compliance decision is required before knowingly processing children's data at scale. A normal checkbox saying "I am a parent" is not equivalent to the Rule's verifiable-consent mechanism.
@@ -152,3 +152,10 @@ The published user notice now distinguishes local browser processing from the Re
 - Validate the actual production bundle for ad/analytics injection and confirm the public consent choice prevents optional tags before enabling any such scripts.
 - The current consent record is browser-side only and can be edited or cleared. Do not describe it as an immutable or server-side audit log.
 - The DPDP (Removal of Difficulties) Order, 2026 clarifies the wording of section 9 regarding a child or a person with disability who has a lawful guardian. It did not remove the need to assess the applicable verifiable-consent mechanism.
+
+
+## Optional contact-number reveal
+
+The Contact page first asks the visitor to acknowledge that the operator's phone number is personal contact information and may be copied from the screen. A separate, unchecked choice optionally remembers the reveal preference using the first-party cookie named flythebg_contact_reveal for 30 days. If that choice is not selected, the number is revealed for the current view without setting that cookie. The cookie stores only the string 1, not the number, and the Hide action clears it. The phone number itself is supplied through the Cloudflare Worker secret CONTACT_PHONE, not embedded in the public TypeScript/JavaScript bundle.
+
+This is an informed-display UX and casual-scraping friction, not authentication or access control. The API is public and a technically capable visitor may request the number directly. The number should be treated as intentionally publishable contact information once revealed. The email contact remains available without revealing the phone number.

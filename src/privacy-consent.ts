@@ -1,7 +1,7 @@
 const CONSENT_KEY = "flythebg_consent_v1";
 const LEGACY_CONSENT_COOKIE = "flythebg_consent";
-const CONSENT_VERSION = "2026-10-24";
-const POLICY_VERSION = "2026-10-24";
+const CONSENT_VERSION = "2026-10-25";
+const POLICY_VERSION = "2026-10-25";
 
 type Consent = {
   version: string; policyVersion: string; consentId: string; agreedAt: string;

@@ -20,6 +20,8 @@ In GitHub repository Settings > Secrets and variables > Actions, add these **rep
 
 In the Cloudflare dashboard, add `HF_ACCESS_TOKEN` as a **Worker runtime secret** for the production Worker. The GitHub fallback intentionally does **not** read or upload this secret; keep it in Cloudflare and verify that it persists after deploying. Never add it to the repository or build logs.
 
+If the gated operator phone contact should be active, add `CONTACT_PHONE` as a separate **Worker runtime secret** in the same Cloudflare Worker. Alternatively, from the authorized project environment run `npx wrangler secret put CONTACT_PHONE` and enter the phone number at the private prompt. Do not write the value into `wrangler.toml`, source, an example env file or GitHub Actions secrets. The `/api/contact-details` route returns a no-store response only after a POST acknowledgement or a remembered reveal preference; it returns 503 until `CONTACT_PHONE` is configured. This checkbox is not identity verification or real access control.
+
 In GitHub > Actions > **Deploy Cloudflare (GitHub fallback)** > Run workflow, select `main`. Optionally set `verify_url` to `https://flythebg.com` to test the live site after deployment. If the job cannot access secrets, check whether GitHub's `production` environment has required reviewers or environment-scoped secrets.
 
 The fallback is manual-only so it does not race with Cloudflare's automatic deployments or deploy unreviewed changes. Once Cloudflare's Git integration works, use one deployment route at a time.

@@ -1,12 +1,12 @@
 # FlyThe BG — Privacy Operations Runbook
 
-Updated: 2026-10-24
+Updated: 2026-10-25
 
 This is an operational engineering runbook, not legal advice.
 
 ## Privacy request intake
 
-Primary contact: support@flythebg.com (verify that this is a live, monitored mailbox before production claims rely on it).
+Primary contact: Aadarsh Maurya, individual project operator. Email: support@flythebg.com (verify this is a live, monitored mailbox before production claims rely on it). Optional phone contact is gated at /contact and delivered via the CONTACT_PHONE Worker secret.
 
 Requests to classify:
 - access / confirmation of processing
@@ -68,3 +68,13 @@ Before launch, confirm that the support mailbox is monitored, record a responsib
 ## Consent storage
 
 The consent manager stores choices in browser localStorage. It does not create a server-side ledger, and it no longer mirrors choices to a first-party consent cookie. Do not call the browser record immutable evidence. The script expires the legacy consent cookie set by earlier versions when it loads; the first request that fetches the updated script may still carry a legacy cookie that was already present in the browser.
+
+
+## Contact number reveal preference
+
+- Configure the phone number only as Cloudflare Worker secret CONTACT_PHONE; never put the actual number in source, README, client JavaScript, public environment files or CI logs.
+- The UI requires an explicit safety acknowledgement before making the POST request to /api/contact-details.
+- A separate unchecked option stores flythebg_contact_reveal=1 for 30 days. The cookie contains no phone number and is only a display preference; it is not an identity check, security boundary or consent for analytics/advertising.
+- The API reads the number from the Worker environment and returns it with Cache-Control: no-store. If the secret is absent, it returns an error and the UI falls back to the public support email.
+- A visitor may bypass the UI and call the public endpoint directly with an acknowledgement request. Do not describe the gate as secure access control. If the number must not be public, remove the reveal endpoint and use an authenticated/private contact channel instead.
+- Verify the stored number, the email inbox and request-handling procedure before production use.

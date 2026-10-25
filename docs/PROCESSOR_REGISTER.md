@@ -1,6 +1,6 @@
 # FlyThe BG — Processor / Third-Party Register
 
-Updated: 2026-10-24
+Updated: 2026-10-25
 
 This register is an engineering inventory, not a substitute for provider contracts or legal review.
 
@@ -15,6 +15,9 @@ This register is an engineering inventory, not a substitute for provider contrac
 | Support mailbox provider | Processes incoming/outgoing email sent to the public support address | Receives email addresses, message content and attachments a sender includes | Used when someone contacts the project; identify actual provider and configure retention |
 | Analytics provider | No runtime analytics provider is intentionally enabled by the current source bundle reviewed for this change | None intentionally enabled by this control layer | Analytics category; verify the actual production bundle before claiming inactive |
 | Affiliate/referral provider | No specific affiliate network is currently asserted by the website | None currently enabled by this control layer | Affiliate category |
+
+| FlyThe BG contact-details endpoint | Same-origin POST /api/contact-details returns the operator phone number from Worker secret CONTACT_PHONE after the page's explicit acknowledgement flow | Cloudflare infrastructure processes request metadata; response is marked no-store and the number is not embedded in the client bundle | Explicit safety acknowledgement; optional remembered state uses the first-party flythebg_contact_reveal cookie. This is not authentication/access control |
+| Contact preference cookie | First-party cookie flythebg_contact_reveal with value 1 and a 30-day expiry | Stores only that the visitor chose to remember the phone reveal state, not the phone number | Set only when the visitor checks the optional remember-choice checkbox and reveals the number; Hide action clears it |
 
 ## Activation rule
 
@@ -33,3 +36,8 @@ Do not treat ads.txt as proof that advertising cookies or tracking are active.
 ## Consent preference storage
 
 The current consent manager stores consent choices in browser localStorage only. It clears the legacy first-party consent cookie from earlier versions and no longer writes that cookie on preference changes. There is no server-side consent ledger, so do not rely on this record as an immutable audit proof.
+
+
+## Consent preference storage
+
+The current consent manager stores general privacy choices in browser localStorage only. It clears the legacy first-party consent cookie from earlier versions and no longer writes that cookie on general preference changes. There is no server-side consent ledger, so do not rely on this record as immutable audit proof.

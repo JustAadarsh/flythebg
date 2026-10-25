@@ -16,7 +16,7 @@ Both CI and manual deployment run `node scripts/check-secrets.mjs`, which checks
 
 The deploy script never embeds `HF_ACCESS_TOKEN` into build artifacts or writes it to a temporary file. It uses Wrangler; configure runtime secrets separately. Do not print environment variables in CI. If any secret may have been exposed, **revoke and rotate it before publishing**.
 
-FlyThe BG is an independent, non-registered media-tools project.
+FlyThe BG is an independent media-tools project operated by Aadarsh Maurya as an individual; it is not a registered company or business entity.
 
 ## Major architecture
 
@@ -111,6 +111,7 @@ Build:
 
 Required Cloudflare secret:
 - `HF_ACCESS_TOKEN` — Secret only.
+- `CONTACT_PHONE` — optional Worker runtime secret for the operator contact number. Set it only in Cloudflare Worker secrets; do not put the value in source, client code, `.env.example`, GitHub Actions logs or the repository.
 
 The Hugging Face Space and API endpoint are fixed in the server-side Worker. The rembg model can take around 20–25 seconds to start after a cold start; the Worker provides startup grace time before reporting that the processor did not become ready. Never put the Hugging Face token in GitHub, HTML, TypeScript, public build output, localStorage, sessionStorage or `wrangler.toml`.
 
@@ -189,3 +190,8 @@ This is the official FlyThe BG support address for product questions, privacy re
 ### Account-free DPDP note (reviewed 2026-10-24)
 
 FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary and route requests through the support inbox. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
+
+
+### Contact-number reveal
+
+The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal preference in a first-party cookie for 30 days; the cookie stores only a flag, not the phone number. The number is supplied by Cloudflare Worker secret CONTACT_PHONE and is not embedded in the public JavaScript bundle. To configure it from the repository environment, run `npx wrangler secret put CONTACT_PHONE` and enter the number at the secure prompt. The UI gate is a privacy/friction measure, not authentication or access control; anyone technically capable of calling the public endpoint may request the number.
