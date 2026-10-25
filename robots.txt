@@ -41,4 +41,4 @@ Allow: /
 User-agent: Meta-ExternalFetcher
 Allow: /
 
-Sitemap: https://flythebg.com/sitemap.xml
+Sitemap: https://www.flythebg.com/sitemap.xml
